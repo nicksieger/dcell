@@ -104,9 +104,9 @@ module DCell
 
   # DCell's actor dependencies
   class Group < Celluloid::Group
+    supervise NodeManager, :as => :node_manager
     supervise Server,      :as => :dcell_server
     supervise InfoService, :as => :info
-    supervise NodeManager, :as => :node_manager
   end
 
   Logger = Celluloid::Logger
