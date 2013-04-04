@@ -59,6 +59,13 @@ module DCell
         begin
           registry_class = DCell::Registry.const_get registry_class_name
         rescue NameError
+          begin
+            require "dcell/registries/#{registry_adapter}_adapter"
+            retry
+          rescue LoadError
+          end if registry_adapter
+          registry_adapter = nil
+
           raise ArgumentError, "invalid registry adapter: #{@configuration['registry']['adapter']}"
         end
 
